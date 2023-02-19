@@ -3,20 +3,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: recp-img
+  name: webapp
 spec:
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
-      app: recp-img
+      app: webapp
   template:
     metadata:
       labels:
-        app: recp-img
+        app: webapp
     spec:
       containers:
-        - name: recp-img
-          image: jahirraihan/recipeimg:V1.0
+        - name: webapp
+          image: jahirraihan/app-blue:html-apache-v1
           # resources:
           #   limits:
           #     memory: "128Mi"
@@ -28,14 +28,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-service
+  name: webapp-service
 spec:
   selector:
-    app: recp-img
+    app: webapp
   ports:
     - name: http
       protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30020
+      nodePort: 30030
   type: NodePort
